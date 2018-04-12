@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 const Book = ({ book, onSelectBookCategory }) => (
   <li>
@@ -22,5 +23,10 @@ const Book = ({ book, onSelectBookCategory }) => (
     </div>
   </li>
 )
+
+Book.propTypes = {
+  book: PropTypes.object.isRequired,
+  onSelectBookCategory: PropTypes.func.isRequired
+}
 
 export default Book
