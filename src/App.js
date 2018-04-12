@@ -1,7 +1,6 @@
 import React from 'react'
-import * as BooksAPI from './BooksAPI'
+import BookList from './BookList'
 import './App.css'
-import Bookshelf from './Bookshelf'
 
 class BooksApp extends React.Component {
   state = {
@@ -11,25 +10,7 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
-    showSearchPage: false,
-    books: []
-  }
-
-  componentDidMount() {
-    BooksAPI.getAll().then(books => {
-      this.setState({ books })
-    })
-  }
-
-  onSelectBookCategory = (id, shelf) => {
-    let books = this.state.books
-    let book = books.find(book => book.id === id)
-
-    BooksAPI.update(book, shelf).then(() => {
-      book.shelf = shelf
-
-      this.setState({books})
-    })
+    showSearchPage: false
   }
 
   render() {
@@ -57,31 +38,7 @@ class BooksApp extends React.Component {
             </div>
           </div>
         ) : (
-          <div className="list-books">
-            <div className="list-books-title">
-              <h1>MyReads</h1>
-            </div>
-            <div className="list-books-content">
-              <Bookshelf
-                books={this.state.books.filter(book => book.shelf === "currentlyReading")}
-                title={"Currently Reading"}
-                onSelectBookCategory={this.onSelectBookCategory}
-              />
-              <Bookshelf
-                books={this.state.books.filter(book => book.shelf === "wantToRead")}
-                title={"Want to Read"}
-                onSelectBookCategory={this.onSelectBookCategory}
-              />
-              <Bookshelf
-                books={this.state.books.filter(book => book.shelf === "read")}
-                title={"Read"}
-                onSelectBookCategory={this.onSelectBookCategory}
-              />
-            </div>
-            <div className="open-search">
-              <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
-            </div>
-          </div>
+          <BookList/>
         )}
       </div>
     )
