@@ -5,7 +5,7 @@ const Book = ({ book, onSelectBookCategory }) => (
   <li>
     <div className="book">
       <div className="book-top">
-        <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
+        <div className="book-cover" style={{ backgroundImage: `url(${book.imageLinks && book.imageLinks.thumbnail})` }}></div>
         <div className="book-shelf-changer">
           <select onChange={(event) => onSelectBookCategory(book.id, event.target.value)} value={book.shelf}>
             <option value="none" disabled>Move to...</option>
@@ -17,7 +17,7 @@ const Book = ({ book, onSelectBookCategory }) => (
         </div>
       </div>
       <div className="book-title">{book.title}</div>
-      {book.authors.map(author => (
+      {Array.isArray(book.authors) && book.authors.map(author => (
         <div key={author} className="book-authors">{author}</div>
       ))}
     </div>
