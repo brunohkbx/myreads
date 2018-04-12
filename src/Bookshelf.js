@@ -1,7 +1,7 @@
 import React from 'react';
 import Book from './Book'
 
-const Bookshelf = ({ books, title }) => (
+const Bookshelf = ({ books, title, onSelectBookCategory}) => (
   <div>
     <div className="bookshelf">
       <h2 className="bookshelf-title">{title}</h2>
@@ -10,9 +10,8 @@ const Bookshelf = ({ books, title }) => (
           { books.map(book => (
             <Book
               key={book.id}
-              title={book.title}
-              authors={book.authors}
-              cover={book.imageLinks.thumbnail}
+              book={book}
+              onSelectBookCategory={onSelectBookCategory}
             />))
           }
         </ol>

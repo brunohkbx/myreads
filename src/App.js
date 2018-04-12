@@ -21,6 +21,17 @@ class BooksApp extends React.Component {
     })
   }
 
+  onSelectBookCategory = (id, shelf) => {
+    let books = this.state.books
+    let book = books.find(book => book.id === id)
+
+    BooksAPI.update(book, shelf).then(() => {
+      book.shelf = shelf
+
+      this.setState({books})
+    })
+  }
+
   render() {
     return (
       <div className="app">
@@ -54,14 +65,17 @@ class BooksApp extends React.Component {
               <Bookshelf
                 books={this.state.books.filter(book => book.shelf === "currentlyReading")}
                 title={"Currently Reading"}
+                onSelectBookCategory={this.onSelectBookCategory}
               />
               <Bookshelf
                 books={this.state.books.filter(book => book.shelf === "wantToRead")}
                 title={"Want to Read"}
+                onSelectBookCategory={this.onSelectBookCategory}
               />
               <Bookshelf
                 books={this.state.books.filter(book => book.shelf === "read")}
                 title={"Read"}
+                onSelectBookCategory={this.onSelectBookCategory}
               />
             </div>
             <div className="open-search">
