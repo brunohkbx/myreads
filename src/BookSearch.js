@@ -16,20 +16,21 @@ class BookSearch extends Component {
     }
     else {
       BooksAPI.search(this.state.query).then(books => {
-        this.setState({ books })
+        this.setState({ books: this.query_books(books) })
       })}
     }, 300)
+
+  query_books = books => {
+    books.map(book => book.shelf = 'none')
+
+    let in_shelf_books = _.intersectionBy(this.props.current_books, books, 'id')
+    return _.unionBy(in_shelf_books, books, 'id')
+  }
 
   onInputChange = (query) => {
     this.setState({ query })
 
     this.search()
-  }
-
-  onSelectBookCategory = (id, shelf) => {
-    let book = this.state.books.find(book => book.id === id)
-
-    BooksAPI.update(book, shelf)
   }
 
   render() {
@@ -52,7 +53,7 @@ class BookSearch extends Component {
               <Book
                 key={book.id}
                 book={book}
-                onSelectBookCategory={this.onSelectBookCategory}
+                onSelectBookCategory={this.props.onSelectBookCategory}
               />))
             }
           </ol>
