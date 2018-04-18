@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import Book from './Book'
+import PropTypes from 'prop-types'
 
 class BookSearch extends Component {
   state = {
@@ -66,6 +67,11 @@ class BookSearch extends Component {
       </div>
     )
   }
+}
+
+BookSearch.propTypes = {
+  current_books: PropTypes.array.isRequired,
+  onSelectBookCategory: PropTypes.func.isRequired
 }
 
 export default BookSearch

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Bookshelf from './Bookshelf'
+import PropTypes from 'prop-types'
 
 class BookList extends Component {
   render() {
@@ -32,6 +33,11 @@ class BookList extends Component {
       </div>
     )
   }
+}
+
+BookList.propTypes = {
+  books: PropTypes.array.isRequired,
+  onSelectBookCategory: PropTypes.func.isRequired
 }
 
 export default BookList
