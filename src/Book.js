@@ -7,12 +7,12 @@ const Book = ({ book, onSelectBookCategory }) => (
       <div className="book-top">
         <div className="book-cover" style={{ backgroundImage: `url(${book.imageLinks && book.imageLinks.thumbnail})` }}></div>
         <div className="book-shelf-changer">
-          <select onChange={(event) => onSelectBookCategory(book.id, event.target.value)} value={book.shelf}>
+          <select onChange={(event) => onSelectBookCategory(book, event.target.value)} value={book.shelf}>
             <option value="none" disabled>Move to...</option>
-            <option value="currentlyReading">Currently Reading</option>
-            <option value="wantToRead">Want to Read</option>
-            <option value="read">Read</option>
-            <option value="none">None</option>
+            <option value="currentlyReading">{book.shelf === "currentlyReading" && "✔" } Currently Reading</option>
+            <option value="wantToRead">{book.shelf === "wantToRead" && "✔" } Want to Read</option>
+            <option value="read">{book.shelf === "read" && "✔" } Read</option>
+            <option value="none">{book.shelf === "none" && "✔" } None</option>
           </select>
         </div>
       </div>
