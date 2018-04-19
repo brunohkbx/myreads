@@ -17,14 +17,17 @@ class BookSearch extends Component {
     }
     else {
       BooksAPI.search(this.state.query).then(books => {
+        if (books.length > 0) {
+          books.map(book => book.shelf = 'none')
+        }
+
         this.setState({ books: this.query_books(books) })
       })}
     }, 300)
 
   query_books = books => {
-    books.map(book => book.shelf = 'none')
-
     let in_shelf_books = _.intersectionBy(this.props.current_books, books, 'id')
+
     return _.unionBy(in_shelf_books, books, 'id')
   }
 
